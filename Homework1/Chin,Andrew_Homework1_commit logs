@@ -1,0 +1,54 @@
+Commit Log 2019-10-14
+New files created:
+  - NA
+  
+Existing files edited:
+  - "DATA MANIP notes.R", "PlantGrowth exercise.R"
+  
+Brief summary:
+  - added notes, completed quiz
+
+Description:
+  - Added more data manipulation notes (tapply, system.time, intersect, merge, str, summary)
+  - Completed PlantGrowth assignment and more notes there
+
+Note to self (for next time):
+  - Start on Homework 2
+  - Add on more notes
+
+
+--
+Commit Log 2019-10-08
+New files created in this work session:
+  -  "Chin,Andrew_Homework1.R", "Homework1" (folder)
+
+Existing files edited in this work session:
+  -  "fishPassage work.R"
+
+Brief summary of activity/changes completed in this work session (<=10 words):
+  - Completed R script of homework 1.
+
+Description of activity/changes completed in this work session (bullet points or 2 sentences):
+  - Completed question 1.
+  - Completed question 2 (fishPassage data) and cleaned up script.
+  - Combined question 1 and 2 scripts into one script ("Chin,Andrew_Homework1.R")
+
+Note to self for next time (what should you start on the next time you open this assignment?):
+  - NA
+  
+--
+Commit Log 2019-10-07
+New files created in this work session:
+  -  "fishPassage work.R", "fishPassage.csv" (imported)
+
+Existing files edited in this work session:
+  -  NA
+
+Brief summary of activity/changes completed in this work session (<=10 words):
+  - Started question 2 of Homework 1 Part 2.
+
+Description of activity/changes completed in this work session (bullet points or 2 sentences):
+  - Started on part 2 of Homework 1, stuck on 2e.
+
+Note to self for next time (what should you start on the next time you open this assignment?):
+  - revisit 2e, start on question 1.

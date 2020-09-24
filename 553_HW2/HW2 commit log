@@ -1,0 +1,58 @@
+#553 Homework 2 commit log
+
+2019-11-13
+Files created:
+   - NA
+
+Files edited:
+   - "Chin.Homework2.R"
+
+Summary:
+   - adjusted inconsistency, finished HW2
+
+Description:
+   - got feedback from Tiago; I had some inconsistency between called arguments and the list I created. Code worked!
+   - threw in some more "\n" into the cat() call in the function to make the space more bearable
+   - finished HW2!!
+   
+Breadcrumbs:
+   - NA
+
+2019-11-12
+Files created:
+   - NA
+
+Files edited:
+   - "Chin_Homework2.R"
+   - "LOOP notes.R"
+
+Summary:
+   - overhauled all functions
+
+Description:
+   - learned how to make "egg carton" empty vectors in functions, overhauled previous functions
+   - ran into when differentiating between indices/values in function counters is important!!
+   - in integrated function: "ERROR: replacement has length zero"... unsure of how to proceed
+
+Breadcrumbs:
+   - AHHHHHHH
+   - look up debugging lecture and try to debug code
+   
+--
+
+2019-11-11
+Files created:
+   - "Chin_Homework2.R"
+
+Files edited:
+   - NA
+
+Summary:
+   - started HW2, on Q2
+
+Description:
+   - finished Q1 nbd
+   - stuck on figuring out how to transfer values across loops
+
+Breadcrumbs:
+   - maybe make values into vectors/integrating them as components of the list?

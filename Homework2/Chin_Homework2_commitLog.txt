@@ -1,0 +1,31 @@
+2019-10-21 commit log
+New files:
+NA
+
+Files edited:
+"Chin_Homework2.R"
+
+Brief summary:
+ - Completed HW2
+
+What did I do?:
+ - Finished both part 1 and part 2 of HW2
+
+Breadcrumb:
+ - NA
+
+2019-10-15 commit log
+New files:
+"Chin_Homework2.R"
+
+Files edited:
+NA
+
+Brief summary:
+ - Started HW2
+
+What did I do?:
+ - Started part 1 of HW2; started plotting code
+
+Breadcrumb:
+ - continue 1b - 

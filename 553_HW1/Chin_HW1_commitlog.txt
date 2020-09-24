@@ -1,0 +1,41 @@
+Andrew Chin
+Homework 1 commit log
+--
+2019-11-8
+Files created:
+   - "HW_Q2c.pdf"
+
+Files edited:
+   - "Chin_Homework1.R"
+   - "HW_Q2b.pdf" (updated)
+   - "HW_Q2c.pdf"
+   - "CL.theorem" (function) (updated)
+
+Brief summary:
+   - finished HW1
+
+Description:
+   - edited the "CL.theorem" function to run a loop to create random samples and histograms
+   - created a dataframe to house the sample size changes
+   - figured out how to use apply() to run the custom "CL.theorem" function; only passed the dataframe and specified other arguments
+   
+
+
+2019-11-5
+Files created:
+   - "Chin_Homework1.R"
+   - "CL.theorem" (function)
+   - "HW1_Q2b.pdf"
+
+Files edited:
+   - NA
+
+Brief summary:
+   - started HW1
+
+Description:
+   - started HW1
+   - finished Q1, stuck on 2c (apply question)
+
+Breadcrumbs:
+   - look up loop() lecture and see how apply() functions as a loop

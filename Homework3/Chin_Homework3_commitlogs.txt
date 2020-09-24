@@ -1,0 +1,57 @@
+Homework 3 Commit logs 
+#==============
+Commit log 2019-10-25
+New files created:
+ "observations", "weather"
+ 
+Existing files edited:
+ "Chin_Homework3.R"
+
+Summary:
+ - finished HW3
+
+Description:
+ - cleaned up script from before; created an object from the number of days and used length() to account for "n =" argument
+ - found out about cbind.data.frame() function! very useful
+ - finished up Q2 and part 3 of HW3
+
+Breadcrumbs:
+ - NA
+
+
+Commit log 2019-10-22
+New files created:
+ "mack.partial", "mack", "temperature"
+ 
+Existing files edited:
+ "Chin_Homework3.R"
+
+Summary:
+ - finished Q1, started Q2
+
+Description:
+ - finished Q1
+ - started on Q2; confused by how to apply multiple rnorm() functions to months and then combine them
+ - will move forward with combined months
+
+Breadcrumbs:
+ - start Q2c
+
+
+Commit log 2019-10-22
+New files created:
+ "Chin_Homework3.R", "MACKBLACK.txt", "MACKICES.txt", "MACKNAFO.txt" (.txt files added to workspace)
+ 
+Existing files edited:
+ NA
+
+Summary:
+ - started HW3
+
+Description:
+ - began Q1 of HW3
+ - read in .txt files as dataframes into workspace
+ - merged mack.nafo and mack.black files by year (Q1b)
+
+Breadcrumbs:
+ - start Q1c

@@ -1,0 +1,36 @@
+Andrew Chin
+Homework 4 commit log
+--
+2019-11-19
+Files created:
+ - "Yelloweye.csv" (uploaded)
+ - "Cabezon.csv" (uploaded)
+
+Files edited:
+ - "Chin_Homework4.R"
+
+Brief summary:
+ - finished HW4 with questions
+
+Description:
+ - completed the rest of Q1 and Q2 
+
+Breadcrumbs:
+- find out how to use the ellipses in functions
+
+
+2019-10-28
+Files created:
+ - "Chin_Homework4.R"
+
+Files edited:
+ - NA
+
+Brief summary:
+ - started HW4
+
+Description:
+ - began 1a + 1b
+
+Breadcrumbs:
+ - keep on keepin' on
