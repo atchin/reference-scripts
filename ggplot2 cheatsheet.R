@@ -3,6 +3,8 @@
 ggplot(data, aes(x=, y=, color/fill/=)) # x and y arguments specify the limits, and color/fill/etc. arguments specifies categorical data
 # data can be DATAFRAMES or TBLS
 
+qplot(x=,y=,color=,data=) # quickplot
+
 ********************************************
 #### check out different visualizations at https://www.r-graph-gallery.com/index.html
 geom_***() +

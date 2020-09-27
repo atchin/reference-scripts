@@ -1,9 +1,16 @@
 whichmatch # DATA MANIP
 
 # TYPES OF DATA
-# Numeric (integers, doubles)
-# Logical (Boolean, true/false)
-# Character (text or string data)
+Numeric (integers (1L), doubles)
+Logical (Boolean, true/false)
+Character (text or string data)
+
+# TYPES OF DATA STRUCTURES
+Vector: one-dimensional structure for storing values of SAME TYPE.
+Matrix: two-dimensional structure for storing values of SAME TYPE.
+Lists: multi-dimensional stucture for storing values of ANY DATA TYPE/OBJECT.
+Dataframe: two-dimensional structure for storing values of ANY DATA TYPE/OBJECT.
+
 
 # ==================CREATING/IMPORTING DATA======================
 data1 <- read.csv("data1.csv", header=T)
@@ -41,9 +48,6 @@ rain & !snow = only rain, and not snow
   <
   >= # greater than or equal to
 
-order() # sorts data by indices
-data[order(data$var1),] # calls for the actual data
-
 sort() # by data values, ascending/descending
 
 # ==================DATA EXPLORATION======================
@@ -58,8 +62,10 @@ unique() # retrieves unique elements within a vector
 summary() # returns statistical summaries of each column within dataset
 str() #STRucture of the dataset; includes heads of columns
 
-max()/min #maximum/minimum value in vector
+max()/min() #maximum/minimum value in vector
 which.max()/which.min() #identifies which index has max/min
+
+mean()
 
 
 # exploring data with logicals; returns indices
@@ -68,8 +74,8 @@ any() # do any elements fulfill condition?
 which() # which elements fulfill condition?
 all() # return all elements that fulfill condition
 
-# placing these logicals within hard brackets return associated values; useful for extraction
-data[any(data>5)]
+# placing these logicals within hard brackets return associated values; useful for extraction and substituting values
+data[any(data>5),"col3"] # can use indices, Boolean logic, or row/column names to call data
 
 
 # common values between two datasources
@@ -87,7 +93,8 @@ Nsample <- length(data)
 
 # Organizing
 sort()
-order()
+order() # sorts data by indices
+data[order(data$var1),] # calls for the actual data
 table() # will extract counts by category; can name multiple factors to extract
 
 grep("Sebastes", fishCode$Scientific, # pull all row elements that contain string "Sebastes", which are found in the Scientific column
@@ -96,15 +103,11 @@ grep("Sebastes", fishCode$Scientific, # pull all row elements that contain strin
      invert=T/F, # equivalent to '!', excluding values with character string
       )
 
-chr1 <- unlist(strsplit(data, "e")) # unlist() splits up character strings by a specific character; unlist creates a vector out of the data
+chr1 <- unlist(strsplit(data, "e")) # strsplit() splits up character strings by a specific character; unlist() creates a vector out of the data
 q <- seq(from, to, by) # data will be distributed among the other character strings (odds, evens, etc.); use seq() to pull out indices that contain desired data
 chr1[q]  # can pull out odd/even/sequential data from vector
 
 
-# Adding data to data
-data1[1] <- newpoint
-newdata <- rbind(data1, data2) # groups data by row (from the bottom)
-newdata <- cbind(data1, data2) # groups data by column (from the right)
 
 " In general, extraction uses hard brackets [] and logicals within them to pull out data "
 
@@ -159,15 +162,23 @@ compiledData <- cbind(data1, data2, data3)
 # useful if subsetted data needs to be changed prior to compiling (?)
 
 
-# ==================DATA MANIPULATION========================
+# ==================DATA MANIPULATION AND RESTRUCTURING========================
+data1[1] <- newpoint
+filename[1,2] <- "NEWVALUE" # change element in row 1, column 2 to "NEWVALUE"
+
+# vectors to matrices
+matrix(data=c(), nrow=, ncol=, byrow=T/F)
+# adding data to fill column 1 is the default
+newdata <- rbind(data1, data2) # combines data by row (from the bottom)
+newdata <- cbind(data1, data2) # combines data by column (from the right)
+
+names(vector) <- c("vector_names") # assigns names to vectors
+vector1[c("name1","name3")] # calling these names within brackets retrieves data from vector
+colnames(matrix) <- c("column_headers")
+rownames(matrix) <- c("row_headers")
 
 as. families # coerces data into specific formats
 
-filename[1,2] <- "NEWVALUE" # change element in row 1, column 2 to "NEWVALUE"
-
-names(vector) <- vector_names # assigns names to vectors
-colnames(matrix) <- c("column_headers")
-rownames(matrix) <- row_headers
 
 
 # creating factors from numbers
