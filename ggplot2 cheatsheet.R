@@ -1,7 +1,7 @@
 # ggplot2 cheatsheet
 
 ggplot(data, aes(x=, y=, color/fill/=)) # x and y arguments specify the limits, and color/fill/etc. arguments specifies categorical data
-# data can be DATAFRAMES or TBLS
+# data can be DATAFRAMES or TIBBLES (which are dataframes specifically for tidyverse)
 
 qplot(x=,y=,color=,data=) # quickplot
 

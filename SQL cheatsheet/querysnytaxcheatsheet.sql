@@ -12,12 +12,22 @@ database.db
 1. ANATOMY OF A DATA QUERY --
 -- ALLCAPS and spacing is similar to tidyverse pipeline style conventions; not neccessary but easier to read
 
-SELECT * -- SELECTs some data columns
+SELECT * -- SELECTs some data columns, with aggregate functions
   FROM some_table -- FROM a particular table
     WHERE some_condition -- filters data columns; uses AND, OR, and () for complex queries
-  ORDER BY some_column -- ORDER BY a data column
+  GROUP BY column(s) -- GROUP data BY columns for aggregate data
+    HAVING some_condition -- filters resulting aggregate
+  ORDER BY column(s) -- ORDER BY a data column
   LIMIT some_limit -- LIMIT table rows
   ; -- ';' signals the end of the query
+
+
+SELECT *
+  FROM some_table
+  WHERE some_condition
+  ORDER BY some_column
+  LIMIT some_limit
+  ;
 
 
 FILTERING BOOLEAN VECTORS --
@@ -26,6 +36,7 @@ FILTERING BOOLEAN VECTORS --
       AND col4 = 'category2'; -- additional filter; AND select for a descriptive variable
       AND col2 < col4 -- can compare columns to other columns
       OR col3 > 0.6 -- an either function; OR a different criteria
+
 
 
 COMPLEX LOGIC & LAYERED FILTERS --
@@ -42,13 +53,14 @@ ORDER BY col1; -- orders in ascending order
 ORDER BY col1 DESC; -- is DESCending order
 
 
+
 AGGREGATE FUNCTIONS/SUMMARY STATISTICS --
 -- can call specific summary stats within the SELECT queries
 SELECT MIN(col1)
   FROM tabl2; -- this selection returns the summary stats, but not the associated rows
 Other aggregate functions:
 MAX(), COUNT(), AVG(), SUM()
--- NOTE: no way (currently) to derive summary stats for all cetegories or factors with just one query - need to run multiple queries
+-- NOTE: use GROUP BY to find summary stats for categories
 
 -- can stack data filters below summary stats
 SELECT MAX(col2)
@@ -61,6 +73,52 @@ SELECT COUNT(*), COUNT(col4)
 -- can use this to search for NULL values within columns since SQL skips NULL values
 
 
+
+GROUP BY SUBGROUPING FUNCTIONS --
+SELECT <cat1>, AVG(<cat2>) AS avgcat2, <cat3>
+  FROM data
+  WHERE <cat3> = 'factor1' OR 'factor2'
+GROUP BY <cat1> -- calculate aggregated data BY cat1
+  HAVING avgcat2 > 0.5 -- a filter for aggregated data
+  ;
+
+-- e.g.,
+SELECT Species, Station, AVG(ForkLength_mm) AS avgFL,
+       MIN(ForkLength_mm) AS minFL, MAX(ForkLength_mm) AS maxFL
+  FROM fishData
+  GROUP BY Species, Station;
+
+
+
+ARITHMETIC FUNCTIONS --
+SELECT SUM(ForkLength_mm)/COUNT(ForkLength_mm) AS 'avgLength',
+       P25th - P75th AS 'quartilespread'
+  FROM trawldata
+    WHERE Genus = 'Sebastes' OR 'Ophidon'
+
+
+
+CASE CREATING NEW COLUMNS FUNCTIONS --
+-- CASE is equivalent to tidyverse::case_when() - create factor/level columns
+SELECT <col1>, <col2>, <col3>,
+   CASE
+     WHEN <condition_1> THEN <value_1>
+     WHEN <condition_2> THEN <value_2>
+     ELSE <value_3>
+     END AS <new_column_name>
+   FROM data;
+-- e.g.,
+SELECT ForkLength_mm, Species, Station,
+    CASE
+      WHEN ForkLength_mm < 10 THEN 'post-larval'
+      WHEN ForkLength_mm > 10 AND ForkLength_mm < 100 THEN 'sub-yearling'
+      ELSE 'yearling-plus' -- fall-back value for whatever is left
+      END AS Spawner_class -- alias for case column
+    FROM fishData;
+
+
+
+ALTERING OUTPUT --
 -- naming columns and summary stats with queries AKA alias
 SELECT ScientificName AS names, ForkLength_mm AS FL,
        Mass_g AS m
@@ -71,8 +129,21 @@ SELECT ScientificName AS names, ForkLength_mm AS FL,
 SELECT AVG(col2) AS 'avg weight'
   FROM tabl1;
 
+-- ROUND for clarity
+SELECT Major_category, Sample_category,
+       ROUND(AVG(ShareWomen), 3) AS Mean_women,
+       SUM(Total) AS Total_graduates
+  FROM new_grads
+  GROUP BY Major_category, Sample_category;
 
--- distinct factors
+-- CAST to transform data
+SELECT CAST(SUM(Women) AS Float) / CAST(SUM(Total) AS Float) AS women_ratio -- 'Float' data type that reports decimal numbers
+  FROM new_grads
+ LIMIT 5;
+
+
+
+DISTINCT FUNCTIONS --
 SELECT DISTINCT Station
   FROM trawldata;
 
@@ -85,6 +156,8 @@ SELECT COUNT(DISTINCT category1) AS unique_cat1,
        COUNT(DISTINCT category2) AS unique_cat2
   FROM tabl1;
 
+
+
 STRING FUNCTIONS --
 -- 'strings' are the values of text columns
 
@@ -95,7 +168,7 @@ SELECT ScientificName,
 
 '||' operator concatenates strings
 -- can be used to combine string data into a new column
-SELECT Genus || Species AS "Scientific Name"
+SELECT Genus || Species AS 'Scientific Name'
   FROM data1
 --add constant strings to columns
 SELECT 'Sebastes' || Species
@@ -106,13 +179,6 @@ SELECT 'Major: ' || LOWER(Major) AS Major, Total, Men, Women, Unemployment_rate,
   FROM recent_grads
   ORDER BY Unemployment_rate DESC;
 
-ARITHMETIC FUNCTIONS --
-SELECT SUM(ForkLength_mm)/COUNT(ForkLength_mm) AS 'avgLength',
-       P25th - P75th AS 'quartilespread'
-  FROM trawldata
-    WHERE Genus = 'Sebastes' OR 'Ophidon'
-
-SUBGROUP FUNCTIONS --
 
 
 2. ANATOMY OF A DATA DEFINITION --

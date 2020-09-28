@@ -5,7 +5,7 @@
 for (i in 1:100) {
    # do something
 }
-# "i" is used as a counter for either indices or characters
+# "i" is a character used as a counter for either indices or characters
 
 #loops in functions
 loop.iris <- function (data=iris) {
@@ -20,7 +20,6 @@ loop.iris <- function (data=iris) {
       # loops is more customizable and can run multiple functions
 
 # most common way to use for-loops - extracting means from different categories
-
 ### create multiple "empty egg carton" vectors
 species <- sort(unique(iris$Species)) # organize by unique species name
 nspecies <- length(species) # how many species?
@@ -40,7 +39,7 @@ General strategy:
    - find out how many loops occur (niter)
    - make a vector of values to loop over
    - make a results vector of length niter - an "empty egg carton"
-   - loop the equation+dataset from i in 1:niter 
+   - loop the equation+dataset from i in 1:niter
    - store values in vector
 
 example:
@@ -48,7 +47,7 @@ mean.norm <- function(n=c(5,10,15,30,50,100)) {
    eggcarton <- length(n)
    values <- vector(length=eggcarton) # these two calls create the empty egg carton
    # to create the egg carton you HAVE to create an empty vector!!
-   
+
    for (i in 1:eggcarton) { # the 1:niter is important; specifies the vector indices rather than total number of spaces
       values[i] <- sd(rnorm(n=n[i], mean=0, sd=1)) # this directs these results into the egg carton; brackets are SUPER IMPORTANT here!!
       # n[i] specifies the actual values that are in the indices

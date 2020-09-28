@@ -45,18 +45,35 @@ drop_na(cols,
   )
 fishData %>% drop_na(SpeciesCode) # e.g., drop all NAs from SpeciesCode column
 
-## dplyr::Manipulate data using %>%
+
+
+##dplyr::Manipulate data using %>%
 # subset data using select()
 # analogous to base::subset() and other indexing strategies
 newfishData <- fishData %>%
   select(weight, condition)
+fishData_nocondition <- fishData %>%
+  select(-condition) # can use minus signs to remove columns
 
 # analogous functions to base::grep() ?
 
-# filter by condition using filter()
+# filter by row data using filter()
 # analogous to base::subset() and other indexing strategies
 newfishData <- fishData %>%
-   filter(length < 100)
+   filter(length < 100, Species="gorbuscha")
+newfishData <- fishData %>%
+   filter(length < 100 | Age != "adult") # can stack Boolean logic with base operators
+
+
+# >2 filters within the same column
+Sebastes <- c("melanops", "caurinus", "mystinus", "paucispinis", "pinniger", "diaconus",
+              "diploproa","flavidus")
+SebastesData <- fishData %>%
+    filter(Genus %in% Sebastes) # '%in%' comparison operator is a compressed if_else() function
+nonSebastesData <- fishData %>%
+    filter(
+      !(Genus %in% Sebastes) # can use '!' to exclude selected Sebastes genera
+    )
 
 # hold filters constant using group_by()
 # analogous to writing base::subset() to an object
@@ -65,24 +82,48 @@ bySp_fishData <- fishData %>%
    group_by(Species)
 bySp_fishData %>% summarize(meanLength.mm=mean(Length.mm),
                             SDLength.mm=mean(Length.mm)) # will report mean and SD length by Species
-ungroup() # removes the grouping selections from a tbl
+ungroup() # removes the grouping selections from a tibble
 
 
 # change data, add columns, and preserve existing columns with mutate()
 # analogous to creating new columns with equations, but more compact
 newfishData <- fishData %>%
-   mutate(fatness = weight/length)
+   mutate(fatness = weight/length,
+          fatfish = fatness >= 1.1) # Boolean column returns logical T/F's
 # transmute() does the same but replaces columns
-# PRIORITY:: learn how to use case_when and if_when arguments: https://dplyr.tidyverse.org/reference/mutate.html
+
+
+#  if_else() to create T/F columns and factors based on conditions
+if_else(condition=, true=, false=) # 'true' and 'false' arguments pass values if condition=T/F, respectively; length(values0)==length(condition)
+# e.g.,
+SebastesData <- fishData %>%
+    mutate(isSebastes = if_else(Genus == "Sebastes", TRUE, FALSE)
+         # 'isSebastes' is a new column with T/F data for each row
+            lifestage = if_else(length>200, 'Spawner', 'Subadult')
+           )
+
+# use '&' and '|' for multiple filters for tidyverse::if_else
+fishData %>%
+    mutate(Estuary.res = if_else(station=="Estuary" & length>100, TRUE, FALSE))
+
+
+# generalized n-branched control flow statement in tidyverse::case_when()
+SebastesData <- fishData %>%
+    mutate(sizeclass = case_when(
+      length < 10 ~ 'post-larval', # tilde '~' is a shortened if statement
+      length < 100 ~ 'yearling',
+      TRUE ~ 'subyearling' # safety net for leftover values
+            )
+      )
+
 
 # changing order of rows by values of selected columns using arrange()
 # analogous to base::order() or sort()
 newfishData <- fishData %>%
    arrange(cat2, cat1,
      desc(cat3), # orders in descending order
-     .by_group=T/F, # 'T' will prioritize by grouping variable that is specified first
    )
-# where .by_group is relevant
+   #  .by_group=T will prioritize by grouping variable that is specified first
 by_cyl <- mtcars %>% group_by(cyl)
                  %>% arrange(desc(wt), .by_group=T)
 
@@ -90,11 +131,15 @@ by_cyl <- mtcars %>% group_by(cyl)
 newfishData <- fishData %>%
    arrange(across(starts_with("Temp"), desc))
 
+# extract one column as vector with pull()
+studyperiod <- fishData %>%
+    pull(Year)
 
 # get summary statistics with summarize()
-# analogous to base::apply, tapply(), colMeans() or rowMeans()
-slow <- slow %>%
-   group_by(Species, Time) %>% # holds filters for summaries constant
+# creates a new tibble with specified stats
+# analogous to base::apply, tapply(), colMeans() or rowMeans() or pipping subset data into mean()
+slowsummary <- slow %>%
+   group_by(Species, Time) %>% # split data into subsets
    summarize(meanwellness=mean(Wellness), SDwellness=sd(Wellness),
    n=n()) # this writes columns with summary data
   # Center: mean(), median()

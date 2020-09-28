@@ -1,4 +1,4 @@
-whichmatch # DATA MANIP
+ # DATA MANIP
 
 # TYPES OF DATA
 Numeric (integers (1L), doubles)
@@ -11,6 +11,11 @@ Matrix: two-dimensional structure for storing values of SAME TYPE.
 Lists: multi-dimensional stucture for storing values of ANY DATA TYPE/OBJECT.
 Dataframe: two-dimensional structure for storing values of ANY DATA TYPE/OBJECT.
 
+DATAMANIP[DATAEXTRACTION
+
+%>% # pipe operator makes code easier to read and follow; passes data on to the next function
+c(4,56,100,3000) %>% sum()
+data <- c(col1, col2) %>% cbind() %>% data[c(2,5,8),]
 
 # ==================CREATING/IMPORTING DATA======================
 data1 <- read.csv("data1.csv", header=T)
@@ -34,14 +39,20 @@ roughy <- list(meta=roughy.descrip,
              a.parameter=roughy.a, b.parameter=roughy.b,
              age=roughy.age,
              K=0.04, Linf.cm=40, L.age0=-2.7)
+# add new data to list
+roughy[["gender ratio"]] <- gender_ratio
+# call also nest lists within Lists
+Speciesparameters <- list(roughy, Pat.Tooth, beltfish, snapper)
 
 is.numeric() #Is the data numeric?
 mode() #is the data numeric or text?
 as. functions (as.character, as.numeric, as.logical, among others) #coerces objects from one type to another
 
 # BOOLEAN LOGIC FOR EXTRACTION; extracting data based on conditions
-& = AND
+& = AND for both elements
+&& = AND but only works on single element
 | = OR
+|| = OR but only works on single element
 ! = exclude succeeding function
 rain & !snow = only rain, and not snow
   >
@@ -117,6 +128,8 @@ filename$COLUMNNAME[INDICES]
 filename[,-1] # negative sign excludes column 1
 filename[c(1,4),] # extract rows 1 and 4
 
+# in Lists
+roughy[c(-4,-5,-6)] # remove values from 4th through 6th positions
 
 # Extracting by column names in BASE
 filename[,c("col1", "col2")] # extract columns "col1" and "col2"
@@ -172,7 +185,8 @@ matrix(data=c(), nrow=, ncol=, byrow=T/F)
 newdata <- rbind(data1, data2) # combines data by row (from the bottom)
 newdata <- cbind(data1, data2) # combines data by column (from the right)
 
-names(vector) <- c("vector_names") # assigns names to vectors
+names(vector) <- c("vector_names")
+names(list) <-c("llst names") # assigns names to vectors or lists
 vector1[c("name1","name3")] # calling these names within brackets retrieves data from vector
 colnames(matrix) <- c("column_headers")
 rownames(matrix) <- c("row_headers")
