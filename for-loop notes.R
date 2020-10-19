@@ -1,4 +1,5 @@
-# LOOPS
+# for-loops / iteration
+
 # loops can be passed to functions in order to pass variables
 
 # for-loops are useful for repetitive calls within a particular dataset
@@ -12,14 +13,15 @@ loop.iris <- function (data=iris) {
    for (i in unique(data$Species)){
       meanSepalLength <- mean(data[data$Species==i,]$SepalLength)
       meanPetalLength <- mean(data[data$Species==i,]$PetalLength)
-      cat(i, meanSepalLength, meanPetalLength, "\n") #\n puts a space values; cat() allows printing of multiple objects
+      cat(i, meanSepalLength, meanPetalLength, "\n") #\n puts in a space; cat() allows printing of multiple objects
    }
 }
 
 # why use for-loops rather than tapply()?
       # loops is more customizable and can run multiple functions
 
-# most common way to use for-loops - extracting means from different categories
+# most common way to use indexing for-loops - extracting means from different categories
+
 ### create multiple "empty egg carton" vectors
 species <- sort(unique(iris$Species)) # organize by unique species name
 nspecies <- length(species) # how many species?
@@ -68,18 +70,15 @@ mean.norm.lengths <- function(n=c(5,10,15,30,50,100),
    }
 }
 
-# while-loops
-# used for when we are searching for a condition/threshold to be met (e.g., when does a population fall below a certain threshold?)
+# named for-loops - iterates over the data itself
+# less flexible, but more readable
+data <- seq(1,100,5)
+newdata <- c() # no eggcarton, only empty vector
 
-# Example: given a 9% death rate, when does the population fall below 500?
-polar.loop <- function(N, year = 2015){
-   while(N>500) {
-      N <- N*0.91
-      year <- year+1
-   }
-   return(year)
+for (number in data) {
+  calc <- -1 * number^2 + 60 * number
+  profits <- c(newdata, calc)
 }
-# press <ESC> to exit infinite while-loops
 
 # if-loops
 # check if data are correct before proceeding with analysis

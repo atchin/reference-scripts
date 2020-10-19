@@ -12,9 +12,12 @@ data.frame(x=,
            y=,
            cat1=as.factor())
 
+********************************************
+********************************************
 ## tidyr::Wrangling Data
 
-## Pivot/reshape data
+********************************************
+#### Pivot/reshape data
 # increases rows and decreases columns with pivot_longer [formerly gather()]
 pivot_longer(data=,
              cols=, # columns to pivot into a wider format
@@ -26,9 +29,12 @@ pivot_longer(data=,
 # make more columns within table with pivot_wider() [formerly spread()]
 pivot_wider()
 
+
+********************************************
 # ______ data with melt()
 melt()
 
+********************************************
 # splitting and combining character columns
 separate(data=, # data frame
          col=, # column name representing current variable
@@ -39,6 +45,7 @@ separate(data=, # data frame
 
 extract()
 
+********************************************
 # dropping values or NAs from columns
 drop_na(cols,
   <tidy_select> # optional argument modifer that specifies which columns to search for NAs https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html
@@ -47,7 +54,11 @@ fishData %>% drop_na(SpeciesCode) # e.g., drop all NAs from SpeciesCode column
 
 
 
-##dplyr::Manipulate data using %>%
+********************************************
+********************************************
+##dplyr::Manipulate data using %>% pipeline operator
+
+********************************************
 # subset data using select()
 # analogous to base::subset() and other indexing strategies
 newfishData <- fishData %>%
@@ -55,19 +66,24 @@ newfishData <- fishData %>%
 fishData_nocondition <- fishData %>%
   select(-condition) # can use minus signs to remove columns
 
+********************************************
+# extract one column as vector with pull()
+studyperiod <- fishData %>%
+    pull(Year)
+
 # analogous functions to base::grep() ?
 
+
+********************************************
 # filter by row data using filter()
 # analogous to base::subset() and other indexing strategies
 newfishData <- fishData %>%
    filter(length < 100, Species="gorbuscha")
 newfishData <- fishData %>%
-   filter(length < 100 | Age != "adult") # can stack Boolean logic with base operators
-
+   filter(length < 100 | Age != "adult") # can stack Boolean logic with base operators; '|' for OR and '&' for AND
 
 # >2 filters within the same column
-Sebastes <- c("melanops", "caurinus", "mystinus", "paucispinis", "pinniger", "diaconus",
-              "diploproa","flavidus")
+Sebastes <- c("melanops", "caurinus", "mystinus", "paucispinis", "pinniger", "diaconus", "diploproa","flavidus")
 SebastesData <- fishData %>%
     filter(Genus %in% Sebastes) # '%in%' comparison operator is a compressed if_else() function
 nonSebastesData <- fishData %>%
@@ -75,6 +91,7 @@ nonSebastesData <- fishData %>%
       !(Genus %in% Sebastes) # can use '!' to exclude selected Sebastes genera
     )
 
+********************************************
 # hold filters constant using group_by()
 # analogous to writing base::subset() to an object
 # group_by() converts a tbl into a grouped tbl, so filtering selections are automatically accounted for other dplyr/tidyverse functions
@@ -85,16 +102,24 @@ bySp_fishData %>% summarize(meanLength.mm=mean(Length.mm),
 ungroup() # removes the grouping selections from a tibble
 
 
-# change data, add columns, and preserve existing columns with mutate()
+********************************************
+# change data structure, add columns, and preserve existing columns with mutate()
 # analogous to creating new columns with equations, but more compact
+# transmute() does the same but replaces columns
 newfishData <- fishData %>%
    mutate(fatness = weight/length,
           fatfish = fatness >= 1.1) # Boolean column returns logical T/F's
-# transmute() does the same but replaces columns
+
+# change data type from character string to factor
+data <- data %>%
+  mutate(cate2_reordered = factor(cate2, levels = c("factor3", "factor2", "factor4", "factor1")))
 
 
-#  if_else() to create T/F columns and factors based on conditions
-if_else(condition=, true=, false=) # 'true' and 'false' arguments pass values if condition=T/F, respectively; length(values0)==length(condition)
+********************************************
+# vectorized "if-else" within tidyverse::if_else() (no loops required!)
+if_else(condition=,
+        true=, false=) # 'true' and 'false' arguments pass values if condition=T/F, respectively; length(values0)==length(condition)
+
 # e.g.,
 SebastesData <- fishData %>%
     mutate(isSebastes = if_else(Genus == "Sebastes", TRUE, FALSE)
@@ -107,6 +132,7 @@ fishData %>%
     mutate(Estuary.res = if_else(station=="Estuary" & length>100, TRUE, FALSE))
 
 
+********************************************
 # generalized n-branched control flow statement in tidyverse::case_when()
 SebastesData <- fishData %>%
     mutate(sizeclass = case_when(
@@ -117,6 +143,7 @@ SebastesData <- fishData %>%
       )
 
 
+********************************************
 # changing order of rows by values of selected columns using arrange()
 # analogous to base::order() or sort()
 newfishData <- fishData %>%
@@ -131,17 +158,19 @@ by_cyl <- mtcars %>% group_by(cyl)
 newfishData <- fishData %>%
    arrange(across(starts_with("Temp"), desc))
 
-# extract one column as vector with pull()
-studyperiod <- fishData %>%
-    pull(Year)
 
+
+********************************************
+********************************************
 # get summary statistics with summarize()
+
 # creates a new tibble with specified stats
 # analogous to base::apply, tapply(), colMeans() or rowMeans() or pipping subset data into mean()
 slowsummary <- slow %>%
    group_by(Species, Time) %>% # split data into subsets
-   summarize(meanwellness=mean(Wellness), SDwellness=sd(Wellness),
-   n=n()) # this writes columns with summary data
+   summarize(meanwellness=mean(Wellness),
+             SDwellness=sd(Wellness),
+             n=n()) # n is the number of observations in group_by
   # Center: mean(), median()
   # Spread: sd(), IQR(), mad()
   # Range: min(), max(), quantile()

@@ -11,7 +11,7 @@ Matrix: two-dimensional structure for storing values of SAME TYPE.
 Lists: multi-dimensional stucture for storing values of ANY DATA TYPE/OBJECT.
 Dataframe: two-dimensional structure for storing values of ANY DATA TYPE/OBJECT.
 
-DATAMANIP[DATAEXTRACTION
+DATAMANIP[DATAEXTRACTION]
 
 %>% # pipe operator makes code easier to read and follow; passes data on to the next function
 c(4,56,100,3000) %>% sum()
@@ -246,32 +246,3 @@ merge(station1, station2, by.x="time1", by.y="time2")
 
 # Speed-testing; especially important for multiple functions that need to be run
 system.time() # insert function here
-
-
-# Formatting dates
-as.Date('9/22/1993', format='%m/%d/%Y')
-%d: day of the month (decimal)
-%m: month (decimal)
-%b: month (abbrev)
-%B: month (full name)
-%y: year (two digits)
-%Y: year (four digits)
-
-# extracting data from dates
-weekdays(as.Date(""))
-months(as.Date(""))
-quarters(as.Date(""))
-julian(as.Date("")) # number of days from Jan 1st
-
-# sub-daily time scales
-as.POSITXlt("1993-9-22 23:30:05")
-POSIXct() # adds on local time zone
-
-# many common functions can accept objects within the Date and POSIX classes
-FUNction(as.Date(DATE1), as.Date(DATE2))
-
-# differences in time can be expressed logically
-Sys.time - t1
-
-#changes in time in different units
-difftime(Sys.time, t1, units="days")

@@ -1,13 +1,13 @@
-# if-loops
+# if-loops / control flow
+
 
 # check if data are correct before proceeding with analysis
 
 # conditions must evaluate to Boolean T/F vectors
-
 if (condition1) {
-   ## if condition1==TRUE, then this code will run
+   # if condition1 == TRUE, then this code will run
 } else {
-   # if condition1==FALSE, then move to condition2
+   # if condition1 == FALSE, then move to condition2
 }
 
 # e.g.,
@@ -21,11 +21,12 @@ if (fish="Sebastes melanops") {
 if (nrow(recent_grads) > 1000) {
    data_size <- 'Large'
 } else {
-    data_size <- 'Small'
+   data_size <- 'Small'
 }
 
 # vectorized "if-else" within tidyverse::if_else() (no loops required!)
-if_else(condition=, true=, false=) # 'true' and 'false' arguments pass values if condition=T/F, respectively; length(values0)==length(condition)
+if_else(condition=,
+        true=, false=) # 'true' and 'false' arguments pass values if condition=T/F, respectively; length(values0)==length(condition)
 
 # e.g.,
 SebastesData <- fishData %>%
@@ -74,7 +75,7 @@ if (condition1 == 'cate1' && condition2 > 100) {  # '&&' == AND
 
 # use '&' and '|' for tidyverse::if_else
 fishData %>%
-  mutate(Estuary-res = if_else(station=="Estuary" & length>100, TRUE, FALSE))
+  mutate(Estuary_res = if_else(station=="Estuary" & length>100, TRUE, FALSE))
 
 
 
