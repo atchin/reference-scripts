@@ -12,6 +12,8 @@ data.frame(x=,
            y=,
            cat1=as.factor())
 
+write_csv(data, "data.csv")
+
 ********************************************
 ********************************************
 ## tidyr::Wrangling Data
@@ -66,12 +68,16 @@ newfishData <- fishData %>%
 fishData_nocondition <- fishData %>%
   select(-condition) # can use minus signs to remove columns
 
+# rename columns with rename()
+# will be used during subsetting data
+rename(data, new_name = old_name)
+
 ********************************************
 # extract one column as vector with pull()
 studyperiod <- fishData %>%
     pull(Year)
 
-# analogous functions to base::grep() ?
+# analogous functions to base::grep() is stringr::select_str()
 
 
 ********************************************
@@ -83,13 +89,11 @@ newfishData <- fishData %>%
    filter(length < 100 | Age != "adult") # can stack Boolean logic with base operators; '|' for OR and '&' for AND
 
 # >2 filters within the same column
-Sebastes <- c("melanops", "caurinus", "mystinus", "paucispinis", "pinniger", "diaconus", "diploproa","flavidus")
+Sebastes <- c("melanops", "caurinus", "mystinus", "paucispinis", "pinniger", "diaconus", "diploproa", "flavidus")
 SebastesData <- fishData %>%
     filter(Genus %in% Sebastes) # '%in%' comparison operator is a compressed if_else() function
 nonSebastesData <- fishData %>%
-    filter(
-      !(Genus %in% Sebastes) # can use '!' to exclude selected Sebastes genera
-    )
+    filter(!(Genus %in% Sebastes)) # can use '!' to exclude selected Sebastes genera
 
 ********************************************
 # hold filters constant using group_by()
@@ -157,7 +161,6 @@ by_cyl <- mtcars %>% group_by(cyl)
 # arrange across the table
 newfishData <- fishData %>%
    arrange(across(starts_with("Temp"), desc))
-
 
 
 ********************************************

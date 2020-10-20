@@ -13,7 +13,8 @@ outputs <- map(inputs, custom_function)
 ##### how is purrr::map() different from tidyr::case_when()?
 # case_when() assigns factors and character labels
 
-# map() is more customizable since you can add your own in functions
+# map() is more customizable since you can add your own functions
+#    numerical output, transform and manipulate data better
 # pair with map() functions with mutate(unlist()) to replicate case_when()
 
 

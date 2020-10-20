@@ -1,5 +1,5 @@
 # WORKING WITH STRINGS
-tidyverse::stringr
+tidyverse::stringr # https://www.rdocumentation.org/packages/stringr/versions/1.4.0
 
 str_sub(words, 1, 9) # 1st argument: string we want to obtain the substring; 2nd argument: start indexing; 3rd: end indexing
 
@@ -18,24 +18,26 @@ side="left/right/both", pad="")
 recent_grads <- recent_grads %>%
     mutate(formatted_major_code = str_pad(major_code, width=7, side="left", pad="0"))
 
+
 # splits sentences or phrases into individual strings
 str_split(sentence, " ") # 2nd argument is the spacing provided
 # OUTPUT: list
-# OUTPUT as vector
-unlist(str_split(sentence, " "))
+unlist(str_split(sentence, " ")) # OUTPUT as vector
 
 # concatenates string vector together
 str_c(words, collapse=" ")
-
 
 
 ********************************************
 #### Regular Expressions: searching for strings
 # needs: 1. text, and the 2. search pattern to look for
 str_detect(stringname, "wordtosearchfor")
-# OUTPUT: returns a TRUE/FALSE
+# OUTPUT: returns a TRUE/FALSE vector
 recent_grads <- recent_grads %>%
            mutate(is_arts = str_detect(Major, "ARTS")) # returns a T/F vector
+# search for multiple strings
+str_detect(cate1, 'condition1|condition2') # '|' == OR
+# analogous to grep()
 
 
 str_replace() # like CTRL+F

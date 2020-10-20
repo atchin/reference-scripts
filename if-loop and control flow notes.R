@@ -1,7 +1,7 @@
 # if-loops / control flow
 
 
-# check if data are correct before proceeding with analysis
+# check if data are correct (i.e., no NAs) before proceeding with analysis
 
 # conditions must evaluate to Boolean T/F vectors
 if (condition1) {
@@ -44,7 +44,7 @@ if (condition1) {
   # condition2==FALSE, output3
 }
 
-# generalized multi-branched control flow statement in tidyverse::case_when()
+# generalized multi-branched control flow statement in tidyverse::case_when(), but data type must match
 SebastesData <- fishData %>%
   mutate(sizeclass = case_when(
          length < 10 ~ 'post-larval', # tilde '~' is a shortened if statement
@@ -68,12 +68,12 @@ if(condition1) {
 # multiple conditions within if-else
 # best to put more specific conditions higher in an if-else chain
 if (condition1 == 'cate1' && condition2 > 100) {  # '&&' == AND
-  output1                                         # '||' == OR
+  output1                                         # '||' == OR; use doubles  for only one element
 } else {
   output2
 }
 
-# use '&' and '|' for tidyverse::if_else
+# use '&' and '|' for tidyverse::if_else and case_when
 fishData %>%
   mutate(Estuary_res = if_else(station=="Estuary" & length>100, TRUE, FALSE))
 
