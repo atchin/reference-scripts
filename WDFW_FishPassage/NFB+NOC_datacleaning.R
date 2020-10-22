@@ -39,13 +39,13 @@ View(data2) # ok but really check for real this time
 # create custom is-else function to sort based on conditions
 sortingbinfunc <- function(xNFB,yNOC){
      if (xNFB==F && yNOC==T) {
-          status <- 'NOC'
+          status <- 'NA'
      } else if (xNFB==T && yNOC==T) {
-          status <- 'NOC'
+          status <- 'NA'
      } else if (xNFB==T && yNOC==F) {
           status <- 'NFB'
      } else {
-          status <- NA
+          status <- 'assessed'
      }
      return(status)
 }
@@ -56,26 +56,18 @@ sortingbinfunc <- function(xNFB,yNOC){
 
 # create new column
 data2 <- data2 %>% mutate(
-        sortingbin = unlist(map2(NFB_logi, nocrossing_logi, sortingbinfunc))
+        NFB_or_NA = unlist(map2(NFB_logi, nocrossing_logi, sortingbinfunc))
                )
 glimpse(data2) # check
 View(data2) # ok but really check for real this time
 
 
 # filter, subset columns, and export
-NFBdata <- data2 %>%
-          filter(sortingbin=='NFB') %>%
-          select(`Date Created`, Latitude, Longitude, Description, Comments) # reorder columns
-glimpse(NFBdata) # check
-View(NFBdata) # doublecheck
-
-# do it again
-NOCdata <- data2 %>%
-        filter(sortingbin=='NOC') %>%
-        select(`Date Created`, Latitude, Longitude, Description, Comments) # reorder columns
-glimpse(NOCdata) # check
-View(NOCdata) # doublecheck
+finaltbl <- data2 %>%
+          filter(NFB_or_NA=='NFB' | NFB_or_NA == 'NA') %>%
+          select(`Date Created`, Latitude, Longitude, NFB_or_NA, Description, Comments) # reorder columns
+glimpse(finaltbl) # check
+View(finaltbl) # doublecheck
 
 # export
-write_csv(NFBdata, "NFB_Kitsap.csv")
-write_csv(NOCdata, "NoCrossingorChannel_Kitsap.csv")
+write_csv(finaltbl, "NFB_or_NA_Kitsap.csv")
