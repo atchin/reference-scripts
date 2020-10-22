@@ -1,10 +1,10 @@
 ## could culverts be symbolized in GIS or if data manip in R is necessary
-## ULTIMATE GOAL:: create a GIS layer for Non Fish-Bearing (NFB) and NO Crossing/NO Channel (NOC) sites
+## ULTIMATE GOAL:: create a GIS layer for Non Fish-Bearing (NFB) and NO Crossing/NO Channel (NA) sites
 ## Data workflow:
 # 1. extract data from character strings
 # 2. filter data based on NFB/NOC criteria (either presence of character string or T/F)
 #    2b. includes a multi-tiered filter
-# 3. subset data tbls for both NFB and NOC sites
+# 3. subset and combine tables for NFB and NA sites
 
 # install.packages("tidyverse")
 library(tidyverse)
@@ -13,12 +13,12 @@ data <- read_csv("OneMoreTime_new.csv")
 str(data)
 glimpse(data)
 
-## identify NFB and NO Crossing/NO Channel (NOC) sites
+## identify NFB and NA sites
 condition <-'No Channel|No Crossing' # no channel OR no crossing, to be used later
 data2 <- data %>%
-          mutate(NFB_logi = str_detect(Title, 'NFB'), # new columns with logical data (TRUE/FALSE) for whether they are NFB/NOC or not
+          mutate(NFB_logi = str_detect(Title, 'NFB'), # new columns with logical data (TRUE/FALSE) for whether they are NFB/NA or not
                  nocrossing_logi = str_detect(Title, condition)) %>%
-          drop_na(NFB_logi) %>% # remove NA rows since it screws up the if-else loop
+          drop_na(NFB_logi) %>% # remove actual NA rows since it screws up the if-else loop
           rename(Comments = Description) %>% # rename columns
           rename(Description = Title)
 glimpse(data2) # check
@@ -41,7 +41,7 @@ sortingbinfunc <- function(xNFB,yNOC){
      if (xNFB==F && yNOC==T) {
           status <- 'NA'
      } else if (xNFB==T && yNOC==T) {
-          status <- 'NA'
+          status <- 'NA' # 'NA' as a character since NA w/o quotes means 'no data inputted' within R
      } else if (xNFB==T && yNOC==F) {
           status <- 'NFB'
      } else {

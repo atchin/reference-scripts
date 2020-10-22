@@ -1,4 +1,21 @@
 10/19/2020 notes--
+Files edited:
+  - "NFB+NA_datacleaning.R" [RENAMED from NFB+NOC_datacleaning.R"]
+  - see Github for complete files
+
+Brief:
+  - revised with Dan's specs
+
+Summary:
+  - showed Dan code. he gave some feedback and revised
+  - asked to combine the NFB + NA (No Crossing/Channel) data into a single table
+  - also asked to review Dan/Kenzie and Terry/Dave data to see if adjustments need to be made
+    - should be minimal
+
+Breadcrumbs:
+  - review Dan/Kenzie and Terry/Dave data to see if adjustments to script need to be made
+
+10/19/2020 notes--
 New files:
   - "old_basefilemanip.R" [RENAMED from "basefilemanip.R"]
   - "NFB+NOC_datacleaning.R" [UPLOADED+EDITED]
@@ -24,7 +41,7 @@ imported files:
 "DATA MANIP notes.R", "CREATING FUNCTIONS.R", "ggplot2 cheatsheet.R", "LOOP notes.R", "tideyverse cheatsheet.R"
 
 installed packages:
-base, tidyverse (ggplot2, tidyr, dplyr, etc.), 
+base, tidyverse (ggplot2, tidyr, dplyr, etc.),
 
 Brief:
   - created RCloud account for fish passage data stuff
