@@ -1,0 +1,32 @@
+{
+    "id": "4569AB81",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1603154324379.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "expression": "NOCdata",
+        "caption": "NOCdata",
+        "totalObservations": 64,
+        "displayedObservations": 64,
+        "variables": 5,
+        "cacheKey": "AACF6745",
+        "object": "NOCdata",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=NOCdata&cache_key=AACF6745&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 8746676925262737486,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1603154324379,
+    "read_only": false,
+    "read_only_alternatives": []
+}

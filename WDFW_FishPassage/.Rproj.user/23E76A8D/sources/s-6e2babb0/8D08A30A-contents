@@ -1,0 +1,35 @@
+# TIDYVERSE CHEAT SHEET
+
+library(tidyverse)
+
+read_csv("DATA.csv")
+
+data.frame(x=,
+           y=,
+           cat1<-as.factor())
+
+# using %>%
+
+# subset data using select()
+newfishData <- fishData %>%
+  select(weight, condition)
+
+# add columns and preserve existing columns with mutate()
+newfishData <- fishData %>%
+   mutate(fatness = weight/length)
+# transmute() does the same but replaces columns
+
+# filter by condition using filter()
+newfishData <- fishData %>%
+   filter(length < 100)
+
+# get summary statistics with summarize()
+slow <- slow %>%
+   group_by(Species, Time) %>% # group_by() filters and subsets data for summarization
+   summarize(meanwellness=mean(Wellness), SDwellness=sd(Wellness), avgtemp=mean(average), n=n()) # this writes columns with summary data
+  # Center: mean(), median()
+  # Spread: sd(), IQR(), mad()
+  # Range: min(), max(), quantile()
+  # Position: first(), last(), nth(),
+  # Count: n(), n_distinct()
+  # Logical: any(), all()
