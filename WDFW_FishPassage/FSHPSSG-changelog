@@ -1,7 +1,36 @@
+**************************************
+10/26/2020 notes--
+Files created:
+     - "KenzieDan_datacleaning.R"
+     - "Kitsap_KenzieDan.csv" [UPLOADED]
+     - "TerryAll.csv" [UPLOADED, w/in "TerryDave" folder]
+
+Files edited:
+     - "NataneAndrew_NFB+NA_datacleaning.R" [RENAMED from "NFB+NA_datacleaning.R"]
+
+Brief:
+     - theorizing for Kenzie/Dan's data, yet to be run
+     - pushed to GitHub
+
+Summary:
+     - took a look at Kenzie/Dan's data; not as clean or descriptive as our (Natane/Andrew) data =_=
+     - wrote new script to see if str_detect() will take a concatenated vector to search across?
+          - we will have to see..
+     - Terry's data looks like we can plug and play with the original data cleaning script
+     - changes pushed to GitHub so I can play with it on personal comp
+
+Breadcrumbs:
+     - check to see if "KenzieDan_datacleaning.R" works as intended
+          - go from there if it doesn't
+          - mutating multiple str_detect() cols and merging would probably work
+     - find way to set wd in RCloud to a local repo?
+
+
+**************************************
 10/19/2020 notes--
 Files edited:
-  - "NFB+NA_datacleaning.R" [RENAMED from NFB+NOC_datacleaning.R"]
-  - see Github for complete files
+     - "NFB+NA_datacleaning.R" [RENAMED from "NFB+NOC_datacleaning.R"]
+     - see Github for complete files
 
 Brief:
   - revised with Dan's specs
@@ -15,6 +44,8 @@ Summary:
 Breadcrumbs:
   - review Dan/Kenzie and Terry/Dave data to see if adjustments to script need to be made
 
+
+**************************************
 10/19/2020 notes--
 New files:
   - "old_basefilemanip.R" [RENAMED from "basefilemanip.R"]
@@ -33,6 +64,8 @@ Summary:
 Breadcrumbs:
 - show Dan my code for sorting data
 
+
+**************************************
 09/17/2020 notes--
 New files:
   - "basefiledatamanip.R"
