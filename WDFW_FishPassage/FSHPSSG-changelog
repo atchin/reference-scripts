@@ -1,4 +1,21 @@
 **************************************
+11/02/2020 notes--
+Files created:
+     - "datacleaning_functions.R"
+
+Files edited:
+     - "NataneAndrew_NFB+NA_datacleaning_draft.R" [RENAMED from "NataneAndrew_NFB+NA_datacleaning.R"]
+     - "Kitsap_KenzieDan.csv" [moved No Site/NFB statuses listed in Description to Title]
+
+Brief:
+     - reorganized data and wrote functions
+
+Summary:
+     - created a common function for data cleaning all sites
+     - tested the multiple vectors in str_detect() - DID NOT WORK, vector was too long compared to the rest of the tbl (figured that would happen)
+          - since it was only a few columns, just manually modified the csv...would be interesting to try to create a cleaning function for misplaced data
+
+**************************************
 10/26/2020 notes--
 Files created:
      - "KenzieDan_datacleaning.R"
