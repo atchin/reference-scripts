@@ -2,8 +2,10 @@
 
 ggplot(data, # this inital call specifies the data range to be used in the plot
   aes(x=, y=, # x and y arguments specify the axes,
-  color/fill/***=)) # and arguments specifies categorical data; for plotting multiple categories
+  color/fill/lty=)) # and arguments specifies categorical data; for plotting multiple categories
 # data can be DATAFRAMES or TIBBLES (which are dataframes specifically for tidyverse)
+
+ggplot(data, aes(x=,y=, col=group_var1, lty=group_var2))
 
 qplot(x=,y=,color=,data=) # quickplot
 
@@ -15,7 +17,7 @@ geom_***() +
 # common geoms
 geom_line() # line plot
 geom_col() # barplot
-geom_scatter() # scatterplot
+geom_point() # scatterplot
 geom_bar() # give row counts, useful for data exploration; no need to specify y-axis in aes()
 geom_hbar() # horizontal-bar; error bars
 geom_histogram( # histogram; no need to specify y-axis in aes()
@@ -36,6 +38,10 @@ plot_grid(p1, p2, labels="AUTO", ncol=, nrow=) # "AUTO" is Capitalized Letter la
 #### Customization
 # themes for plots https://ggplot2.tidyverse.org/reference/ggtheme.html
 
+# changing line/point type style
+scale_linetype_manual(values=c(1,4))
+scale_color_manual(values=c("blue","green"))
+
 # ablines
 geom_vline(xintercept=, color=, linetype=, size=)
 geom_hline(yintercept=, color=, linetype=, size=)
@@ -43,6 +49,7 @@ geom_hline(yintercept=, color=, linetype=, size=)
 # hodgehodge of theme() calls
 theme(panel.background = element_rect(fill="background_color"), # fill background color with element rectangle
     )
+
 
 ********************************************
 #### Axes Customization

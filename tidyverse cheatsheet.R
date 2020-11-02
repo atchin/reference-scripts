@@ -83,10 +83,15 @@ studyperiod <- fishData %>%
 ********************************************
 # filter by row data using filter()
 # analogous to base::subset() and other indexing strategies
-newfishData <- fishData %>%
-   filter(length < 100, Species="gorbuscha")
+bigpinksalmon <- fishData %>%
+   filter(length < 100 & Species=="gorbuscha")
 newfishData <- fishData %>%
    filter(length < 100 | Age != "adult") # can stack Boolean logic with base operators; '|' for OR and '&' for AND
+
+# more complex filters
+newfishData <- fishData %>%
+  filter((Species=='tshawytscha' | Species=='kitsutch') & (Condition=='Poor' | Condition=='Good'))
+
 
 # >2 filters within the same column
 Sebastes <- c("melanops", "caurinus", "mystinus", "paucispinis", "pinniger", "diaconus", "diploproa", "flavidus")

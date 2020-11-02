@@ -7,7 +7,9 @@
 # 3. subset and combine tables for NFB and NA sites
 
 # install.packages("tidyverse")
+# install.packages("here")
 library(tidyverse)
+library(here)
 # data <- read_csv('data.csv')
 data <- read_csv("OneMoreTime_new.csv") # data from Natane/Andrew
 str(data)
