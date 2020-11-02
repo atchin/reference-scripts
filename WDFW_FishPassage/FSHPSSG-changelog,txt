@@ -2,6 +2,7 @@
 11/02/2020 notes--
 Files created:
      - "datacleaning_functions.R"
+     - "County Inventory" repo
 
 Files edited:
      - "NataneAndrew_NFB+NA_datacleaning_draft.R" [RENAMED from "NataneAndrew_NFB+NA_datacleaning.R"]
@@ -9,11 +10,18 @@ Files edited:
 
 Brief:
      - reorganized data and wrote functions
+     - created new repo in Github
 
 Summary:
-     - created a common function for data cleaning all sites
+     - created a common function for data cleaning all sites; wrote out the code to test, not tested yet
      - tested the multiple vectors in str_detect() - DID NOT WORK, vector was too long compared to the rest of the tbl (figured that would happen)
           - since it was only a few columns, just manually modified the csv...would be interesting to try to create a cleaning function for misplaced data
+     - reorganized the data so that the here() package could be used
+     - created a new repo on personal GitHub
+
+Breadcrumbs:
+     - pull on local and test if functions work
+
 
 **************************************
 10/26/2020 notes--
