@@ -1,18 +1,26 @@
-## Kenzie/Dan data
-# install.packages("tidyverse", "here")
-library(tidyverse)
-library(here)
-here() # infers and prints where R thinks the wd is; cleaner than hard coding setwd()
+## could culverts be symbolized in GIS or if data manip in R is necessary
+## ULTIMATE GOAL:: create a GIS layer for Non Fish-Bearing (NFB) and NO Crossing/NO Channel (NA) sites
+## Data workflow:
+# 1. extract data from character strings
+# 2. filter data based on NFB/NOC criteria (either presence of character string or T/F)
+#    2b. includes a multi-tiered filter
+# 3. subset and combine tables for NFB and NA sites
 
-data <- read_csv(here("./data/Kitsap_KenzieDan.csv")) # tells R where the data is located;
+# install.packages("tidyverse")
+library(tidyverse)
+# data <- read_csv('data.csv')
+data <- read_csv("OneMoreTime_new.csv") # data from Natane/Andrew
 str(data)
 glimpse(data)
 
 ## identify NFB and NA sites
+condition <-'No Channel|No Crossing' # no channel OR no crossing, to be used later
 data2 <- data %>%
-          mutate(NFB_logi = str_detect(c(Title, Description), 'NFB'), # see if this works
-                 nocrossing_logi = str_detect(c(Title, Description), 'No Site|Nothing')) %>%
-          drop_na(NFB_logi) # remove actual NA rows since it screws up the if-else loop
+          mutate(NFB_logi = str_detect(Title, 'NFB'), # new columns with logical data (TRUE/FALSE) for whether they are NFB/NA or not
+                 nocrossing_logi = str_detect(Title, condition)) %>%
+          drop_na(NFB_logi) %>% # remove actual NA rows since it screws up the if-else loop
+          rename(Comments = Description) %>% # rename columns
+          rename(Description = Title)
 glimpse(data2) # check
 View(data2) # ok but really check for real this time
 
@@ -29,12 +37,12 @@ View(data2) # ok but really check for real this time
 
 # filter for NFB+channel & NFB+NOC using control flow (case_when, if-else loops+map2?)
 # create custom is-else function to sort based on conditions
-sortingbinfunc <- function(xNFB,yNOC){
-     if (xNFB==F && yNOC==T) {
+sortingbinfunc <- function(xNFB,yNA){
+     if (xNFB==F && yNA==T) {
           status <- 'NA'
-     } else if (xNFB==T && yNOC==T) {
+     } else if (xNFB==T && yNA==T) {
           status <- 'NA' # 'NA' as a character since NA w/o quotes means 'no data inputted' within R
-     } else if (xNFB==T && yNOC==F) {
+     } else if (xNFB==T && yNA==F) {
           status <- 'NFB'
      } else {
           status <- 'assessed'
@@ -57,9 +65,9 @@ View(data2) # ok but really check for real this time
 # filter, subset columns, and export
 finaltbl <- data2 %>%
           filter(NFB_or_NA=='NFB' | NFB_or_NA == 'NA') %>%
-          select(`Date Created`, Latitude, Longitude, NFB_or_NA, Title, Description) # reorder columns
+          select(`Date Created`, Latitude, Longitude, NFB_or_NA, Description, Comments) # reorder columns
 glimpse(finaltbl) # check
 View(finaltbl) # doublecheck
 
 # export
-write_csv(finaltbl, "NFB_or_NA_KenzieDan_Kitsap.csv")
+write_csv(finaltbl, "NFB_or_NA_Kitsap.csv")
