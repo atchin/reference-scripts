@@ -78,7 +78,6 @@ which.max()/which.min() #identifies which index has max/min
 
 mean()
 
-
 # exploring data with logicals; returns indices
 sum() # return sample size that fulfills condition
 any() # do any elements fulfill condition?
@@ -88,11 +87,19 @@ all() # return all elements that fulfill condition
 # placing these logicals within hard brackets return associated values; useful for extraction and substituting values
 data[any(data>5),"col3"] # can use indices, Boolean logic, or row/column names to call data
 
+# use plot() to explore data
 
-# common values between two datasources
+
+# ==================COMBINING DATA======================
+# an inner join, or common values between two datasources
 intersect(station1, station2)
 
-# use plot() to explore data
+# Combining two data sources - merging a common variable to observation
+merge(x, y, by.x="time", by.y="time", #by.x and by.y tells R which columns within each dataset to match
+all=, # T == full outer join
+all.x=T/F, # T == left join, that is, intersecting values and all from x
+all.y=T/F) # T == right join, intersecting values and all from y
+
 
 
 # =================DATA EXTRACTION (SUBSETTING DATA)===============
@@ -239,9 +246,6 @@ FUN = the function to be applied (mean, sd, etc.)
 diff() #find differences between successive elements
 X = a vector
 
-# Combining two data sources - merging a common variable to observation
-merge(station1, station2, by.x="time1", by.y="time2")
-                            #by.x and by.y tells R which columns within each dataset to match
 
 
 # Speed-testing; especially important for multiple functions that need to be run
