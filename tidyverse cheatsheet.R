@@ -92,13 +92,13 @@ newfishData <- fishData %>%
 newfishData <- fishData %>%
   filter((Species=='tshawytscha' | Species=='kitsutch') & (Condition=='Poor' | Condition=='Good'))
 
-
-# >2 filters within the same column
+# >2 string filters within the same column
 Sebastes <- c("melanops", "caurinus", "mystinus", "paucispinis", "pinniger", "diaconus", "diploproa", "flavidus")
 SebastesData <- fishData %>%
-    filter(Genus %in% Sebastes) # '%in%' comparison operator is a compressed if_else() function
+    filter(Species %in% Sebastes) # '%in%' comparison operator is a compressed if_else() function
 nonSebastesData <- fishData %>%
-    filter(!(Genus %in% Sebastes)) # can use '!' to exclude selected Sebastes genera
+    filter(!(Species %in% Sebastes)) # can use '!' to exclude selected Sebastes species
+# searching for key words within strings requires a more complex tidyerse::stringr code
 
 ********************************************
 # hold filters constant using group_by()
