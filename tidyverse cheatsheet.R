@@ -14,27 +14,103 @@ data.frame(x=,
 
 write_csv(data, "data.csv")
 
+# using here()
+library(here)
+inventory <- read_csv(here('data//WDFW-Salmonid_Stock_Inventory_Populations.csv'))
+
+********************************************
+********************************************
+## tidyr::Exploring Data
+
+********************************************
+head()
+glimpse()
+ode(), class(), dim(), and length()
+dim() # returns length of dataframes;
+      # can be dim(vector)[1]; [1] for rows, [2] for columns
+
+attributes() # retrieves the attributes of a data frame
+unique() # retrieves unique elements within a vector
+summary() # returns statistical summaries of each column within dataset
+str() #STRucture of the dataset; includes heads of columns
+
+purrr::map(data, class) # what type are the data?
+
+max()/min() #maximum/minimum value in vector
+which.max()/which.min() #identifies which index has max/min
+
+mean()
+
+# exploring data with logicals; returns indices
+sum() # return sample size that fulfills condition
+any() # do any elements fulfill condition?
+which() # which elements fulfill condition?
+all() # return all elements that fulfill condition
+
+# placing these logicals within hard brackets return associated values; useful for extraction and substituting values
+data[any(data>5),"col3"] # can use indices, Boolean logic, or row/column names to call data
+
+# use plot() to explore data
+
+
 ********************************************
 ********************************************
 ## tidyr::Wrangling Data
 
 ********************************************
 #### Pivot/reshape data
+# Why pivot data?
+#  pivot_wider() groups columns together and makes plotting multiple variables on the same plot in ggplot more simple
+# also, pivoting back and forth can help clean up one variable that is expressed across multiple columns (e.g., presence/absence data across regions, when these regions can be grouped)
+
 # increases rows and decreases columns with pivot_longer [formerly gather()]
 pivot_longer(data=,
              cols=, # columns to pivot into a wider format
              names_to=, # specifies name of column created from data
              values_to=, # type of data to transform rows to
              names_prefix=,
+             values_drop_na=T/F # if TRUE, drops NAs and prevents double-counting
 )
+# 'Long' data has a 'value' column for different variables
+# year  column   value
+# 2014  length    500
+# 2014  weight    1200
+# 2014  age       10
+# 2015  d13C      -22.35
+
 
 # make more columns within table with pivot_wider() [formerly spread()]
 pivot_wider()
+# year  length   weight   age   d13C
+# 2014  500       1200     10   -22.35
+
+# Example: Genetic Stock ID for salmon
+
 
 
 ********************************************
 # ______ data with melt()
 melt()
+
+********************************************
+********************************************
+## tidyr::Data cleaning
+# Questions to ask:
+# Which data do we need for our analysis?
+# Do we need to create any new variables?
+# Are the data of the correct type?
+# Do we need to combine dataframes?
+# Do the data need to be reshaped?
+# Are there missing data?
+
+# change data type with as.*** series
+purrr::map(data, class)
+data %>% mutate(var1 = as.numeric(var1))
+
+# rename columns with rename()
+# will be used during subsetting data
+rename(data, new_name = old_name)
+
 
 ********************************************
 # splitting and combining character columns
@@ -68,9 +144,7 @@ newfishData <- fishData %>%
 fishData_nocondition <- fishData %>%
   select(-condition) # can use minus signs to remove columns
 
-# rename columns with rename()
-# will be used during subsetting data
-rename(data, new_name = old_name)
+
 
 ********************************************
 # extract one column as vector with pull()
@@ -100,6 +174,7 @@ nonSebastesData <- fishData %>%
     filter(!(Species %in% Sebastes)) # can use '!' to exclude selected Sebastes species
 # searching for key words within strings requires a more complex tidyerse::stringr code
 
+
 ********************************************
 # hold filters constant using group_by()
 # analogous to writing base::subset() to an object
@@ -108,8 +183,22 @@ bySp_fishData <- fishData %>%
    group_by(Species)
 bySp_fishData %>% summarize(meanLength.mm=mean(Length.mm),
                             SDLength.mm=mean(Length.mm)) # will report mean and SD length by Species
+
+# group by the sum using base::aggregate()
+escapementtrend_byspecies <- aggregate(x=PSHCescapement$`abundance quantity`,
+    by=list(year=PSHCescapement$year, species=PSHCescapement$species.x, production=PSHCescapement$`production type`),
+    FUN=sum)
+
 ungroup() # removes the grouping selections from a tibble
 
+
+********************************************
+# remove duplicate rows based on columns with distinct(); a little more precise than dplyr::select()
+
+fishData %>%
+  distinct(year, stock, region, .keep_all=T/F # if TRUE, keeps all variables of the selected data within the tbl
+  ) %>% # removes duplicate rows of the tbl using the 'year' and 'stock' variables
+  filter(region=="SEAK") # can be paired with splyr::filter() to subset data
 
 ********************************************
 # change data structure, add columns, and preserve existing columns with mutate()
@@ -117,12 +206,26 @@ ungroup() # removes the grouping selections from a tibble
 # transmute() does the same but replaces columns
 newfishData <- fishData %>%
    mutate(fatness = weight/length,
-          fatfish = fatness >= 1.1) # Boolean column returns logical T/F's
+          fatfish = fatness >= 1.1,
+          sumlength = length1 + length2) # Boolean column returns logical T/F's
 
 # change data type from character string to factor
 data <- data %>%
   mutate(cate2_reordered = factor(cate2, levels = c("factor3", "factor2", "factor4", "factor1")))
 
+# running similar mutate() operations using across()
+across(targeted_columns, # a vector of column names as characters
+       operations) # the R function used
+vec <- c('length','weight','age','d13C','d15N')
+newfishData <- fishData %>%
+      mutate(
+            across(vec, as.numeric))
+# selection helpers in across(), which work with character strings:
+starts_with()
+ends_with()
+contains()
+sat_results <- sat_results %>%
+    mutate(across(contains("Avg. Score"), as.numeric)) # this mutate call is seperate from others
 
 ********************************************
 # vectorized "if-else" within tidyverse::if_else() (no loops required!)

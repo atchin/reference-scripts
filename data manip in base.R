@@ -193,13 +193,16 @@ newdata <- rbind(data1, data2) # combines data by row (from the bottom)
 newdata <- cbind(data1, data2) # combines data by column (from the right)
 
 names(vector) <- c("vector_names")
-names(list) <-c("llst names") # assigns names to vectors or lists
+names(list) <-c("list names") # assigns names to vectors or lists
 vector1[c("name1","name3")] # calling these names within brackets retrieves data from vector
 colnames(matrix) <- c("column_headers")
 rownames(matrix) <- c("row_headers")
 
 as. families # coerces data into specific formats
-
+as.character
+as.factor
+as.Numeric
+as.etc.
 
 
 # creating factors from numbers
